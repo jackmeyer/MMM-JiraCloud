@@ -2,13 +2,6 @@ const NodeHelper = require('node_helper');
 const JiraApi = require('jira-client');
 
 
-var jira = new JiraApi({
-    protocol: 'https',
-    host: 'jiramagicmirror.atlassian.net',
-    username: 'meyer.jackc@gmail.com',
-    password: 'ATATT3xFfGF0S8Ye4xjNrX492MYEey3EXLa7SdUfRg5PB3HSPZimu18N-LzuAn8UKew6lCRfRtkXnBDA6NUGRI4ZXNyBPoiHl8eu4bJAEuYi0uHqzPbaLdXZEqvyVTVeD7SlDcClLmpBwNGza37fyiFNVzRdDtbuUmc6Hra4PwxTCtfDEvmh_Vo=39868048'
-});
-
 module.exports = NodeHelper.create({
 
     async socketNotificationReceived(notification, payload) {
@@ -27,6 +20,8 @@ module.exports = NodeHelper.create({
 
     async getStatuses() {   // **** used to get column titles
         try {
+          var jira = new JiraApi({protocol: 'https', host: this.config.host, username: this.config.username, password: this.config.password});
+
           var statusList = await jira.listStatus(this.config.projectKey);
           console.log(statusList);
           this.sendSocketNotification('BOARD_UPDATE', statusList);
@@ -36,8 +31,10 @@ module.exports = NodeHelper.create({
       },
 
       async getIssuesForBoard() {
-        var issueList = [];
         try {
+          var issueList = [];
+          var jira = new JiraApi({protocol: 'https', host: this.config.host, username: this.config.username, password: this.config.password});
+          
           const issue = await jira.getIssuesForBoard(this.config.boardId);
           var issues = issue.issues;
           for(const x of issues) {
