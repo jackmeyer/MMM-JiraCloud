@@ -23,7 +23,7 @@
                 </div>
                 <div class="sc-10a4w9j-0 kiDxfE" >
                     {% for issue in column.issues %}
-                        <div style="position: absolute; top: 0px; width: 100%; contain: style;">
+                        <div>
                             <div class="sc-1gar2hk-0 ixgNBr">
                                 <div class="sc-7ay0j8-0 dMbKdr">
                                     <div class="mtbo2t-0 jiJUhf">
@@ -50,7 +50,9 @@
                                                         <div class="sc-1lkqyrp-0 fScEKs">
                                                             <div role="presentation">
                                                                 <span class="sc-1lkqyrp-1 hADnUb">
-                                                                <img class="sc-1lkqyrp-2 elnrpJ" src={{issue.assignee.avatarUrls[1]}}>
+                                                                {% if issue.assignee != null %}
+                                                                <img class="sc-1lkqyrp-2 elnrpJ" src={{issue.assignee.avatarUrls.48x48}}>
+                                                                {% endif %}
                                                                 </span>
                                                             </div>
                                                         </div>

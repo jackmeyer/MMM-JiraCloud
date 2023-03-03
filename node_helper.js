@@ -11,15 +11,15 @@ module.exports = NodeHelper.create({
   async socketNotificationReceived(notification, payload) {
     if (notification === 'CONFIG') {
       this.config = payload;
-      this.getIssuesForBoard();
+      //this.getIssuesForBoard();
       this.getBoard();
-      this.getStatuses();
+      //this.getStatuses();
       this.getBoardMapping();
 
       this.reloadInterval = setInterval(() => {
-        this.getIssuesForBoard();
+        //this.getIssuesForBoard();
         this.getBoard();
-        this.getStatuses();
+        //this.getStatuses();
         this.getBoardMapping();
       }, this.config.reloadInterval);
     };
@@ -30,6 +30,7 @@ module.exports = NodeHelper.create({
       var jira = new JiraApi({ protocol: 'https', host: this.config.host, username: this.config.username, password: this.config.password });
 
       this.statusList = await jira.listStatus(this.config.projectKey);
+      await new Promise(r => setTimeout(r, 500));
       this.sendSocketNotification('BOARD_UPDATE', this.statusList);
     } catch (err) {
       console.error(err);
@@ -40,6 +41,7 @@ module.exports = NodeHelper.create({
     try {
       var jira = new JiraApi({ protocol: 'https', host: this.config.host, username: this.config.username, password: this.config.password });
       var board = await jira.getBoard(this.config.boardId);
+      await new Promise(r => setTimeout(r, 500));
       this.sendSocketNotification('BOARD_INFO', board);
     } catch (err) {
       console.error(err);
@@ -53,10 +55,10 @@ module.exports = NodeHelper.create({
       const issue = await jira.getIssuesForBoard(this.config.boardId);
       var issues = issue.issues;
       for (const x of issues) {
-        console.log(x.fields);
         var addIssue = { "key": x.key, "summary": x.fields.summary, "issueType": x.fields.issuetype.name, "issueIconUrl": x.fields.issuetype.iconUrl, "statusId": x.fields.status.id, "assignee": x.fields.assignee };
         this.issueList.push(addIssue);
       }
+      await new Promise(r => setTimeout(r, 500));
       this.sendSocketNotification('ISSUES_UPDATE', this.issueList);
     } catch (err) {
       console.error(err);
@@ -64,10 +66,10 @@ module.exports = NodeHelper.create({
   },
 
   async getBoardMapping() {
-    console.log("issue: " + this.issueList)
+    await this.getStatuses();
+    await this.getIssuesForBoard();
     this.boardMapping.length = 0;
     for (const status of this.statusList) {
-      console.log(status);
       var column = {id: status.id, name: status.name, issues: [] }
       for (const issue of this.issueList) {
         if(issue.statusId == status.id) {
@@ -76,8 +78,8 @@ module.exports = NodeHelper.create({
       }
       this.boardMapping.push(column);
     }
-    console.log(this.boardMapping);
     this.boardMapping.sort((a, b) => a.id - b.id);
+    await new Promise(r => setTimeout(r, 500));
     this.sendSocketNotification('BOARD_MAPPING', this.boardMapping)
     this.issueList.length = 0;
     

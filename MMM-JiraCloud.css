@@ -46,12 +46,6 @@
     max-width: 270px;
 }
 
-.NOLGR {
-    position: sticky;
-    background: var(--ds-background-neutral,#FFFFFF);
-    top: 0px;
-}
-
 .NOLGR::before {
     opacity: 0;
     transition: opacity 0.2s ease 0s;
@@ -144,6 +138,7 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    font-size: large;
     max-width: 100%;
     margin-top: 8px;
 }
@@ -260,13 +255,14 @@
     display: flex;
     -webkit-box-pack: center;
     justify-content: center;
-    flex-direction: column;
+    flex-direction: row;
 }
 
 .gbsqSE {
     width: 16px;
     height: 16px;
-    vertical-align: text-bottom;
+    margin-right: 4px;
+    vertical-align: middle;
 }
 
 .dtAoPo {

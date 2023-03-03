@@ -27,17 +27,15 @@ Module.register('MMM-JiraCloud', {
     },
 
     socketNotificationReceived(notification, payload) {
+        console.log("notification received");
         if(notification === 'BOARD_UPDATE') {
             this.statusList = payload;
-            //console.log(payload);
         }
         else if(notification === 'ISSUES_UPDATE') {
             this.issueList = payload;
-            console.log(payload);
         } 
         else if(notification === 'BOARD_INFO') {
             this.boardInfo = payload;
-            //console.log(payload);
         }
         else if(notification === 'BOARD_MAPPING') {
             this.boardMapping = payload;
