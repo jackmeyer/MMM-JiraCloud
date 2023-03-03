@@ -35,6 +35,22 @@ Module.register('MMM-JiraCloud', {
             this.issueList = payload;
             console.log(payload);
         } 
+        else if(notification === 'BOARD_INFO') {
+            this.boardInfo = payload;
+            console.log(payload);
+        }
         this.updateDom();
+    },
+
+    getTemplate() {
+        return `${this.name}.njk`;
+    },
+
+    getTemplateData() {
+        return {
+            statusList: this.statusList,
+            issueList: this.issueList,
+            boardInfo: this.boardInfo,
+        };
     },
 })

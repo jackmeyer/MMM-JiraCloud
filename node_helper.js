@@ -30,6 +30,17 @@ module.exports = NodeHelper.create({
         }
       },
 
+      async getBoard() {
+        try {
+          var jira = new JiraApi({protocol: 'https', host: this.config.host, username: this.config.username, password: this.config.password});
+          var board = await jira.getBoard(this.config.boardId);
+          console.log(board);
+          this.sendSocketNotification('BOARD_INFO', board);
+        } catch (err) {
+          console.error(err);
+        }
+      },
+
       async getIssuesForBoard() {
         try {
           var issueList = [];
