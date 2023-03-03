@@ -1,3 +1,55 @@
 <header>
     {{boardInfo.name}}
 </header>
+<div class="ugrbwv-0 dcIHlO">
+    {% for column in statusList %}
+    <div class="sc-12cqrqc-0 jwPAny">
+        <div class="sc-12cqrqc-1 fVPxnT">
+            <div class="__board-test-hook__column sc-1ef3ied-1 cgwwdw j4whmj-0 gftcoT">
+                <div class="sc-1xtha37-1 NOLGR sc-1xtha37-0 iTUnNM">
+                    <div class="sc-1k8t1g3-0 hMFuoc">
+                        <div class="sc-1k8t1g3-3 cPpMlq">
+                            <div class="sc-1wvkof1-2 dXSenY">{{column.name}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sc-10a4w9j-0 kiDxfE">
+                    <div style="position: absolute; top: 0px; width: 100%; contain: style;">
+                        <div class="sc-1gar2hk-0 ixgNBr">
+                            <div class="mtbo2t-0 jiJUhf">
+                                <div class="sc-14m9v6d-1 dUdUFt">
+                                    <div class="y8i3hb-1 fIqZmS">
+                                        <div class="y8i3hb-0 kvmZCr">
+                                            <span class="sc-1u5kgfx-0 etCT">{{FOREACH ISSUE SUMMARY GOES HERE}}</span>
+                                        </div>
+                                        <div class="y8i3hb-0 kvmZCr">
+                                            <div class="y8i3hb-3 fRSGfA">
+                                                <div class="y8i3hb-4 lBJIh">
+                                                    <div class="sc-1j9o0vm-0 gvcthx">
+                                                        <div role="presentation">
+                                                            <img class="sc-1j9o0vm-1 gbsqSE" src={{ISSUE TYPE ICON}}>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="y8i3hb-5 dtAoPo">
+                                                <div class="sc-1lkqyrp-0 fScEKs">
+                                                    <div role="presentation">
+                                                        <span class="sc-1lkqyrp-1 hADnUb">
+                                                            <img class="sc-1lkqyrp-2 elnrpJ" src={{ASSIGNEE AVATAR URL}}>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
