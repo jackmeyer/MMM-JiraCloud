@@ -8,7 +8,7 @@
 Module.register('MMM-JiraCloud', {
 
     defaults: {
-        reloadInterval: 1000 * 60 * 30, //every 30 minutes
+        reloadInterval: 1000 * 60 * 30, //every 30 seconds
         size: 'small',
         showAssigneeName: false,
     },
@@ -29,7 +29,7 @@ Module.register('MMM-JiraCloud', {
     socketNotificationReceived(notification, payload) {
         if(notification === 'BOARD_UPDATE') {
             this.statusList = payload;
-            console.log(payload);
+            //console.log(payload);
         }
         else if(notification === 'ISSUES_UPDATE') {
             this.issueList = payload;
@@ -37,6 +37,10 @@ Module.register('MMM-JiraCloud', {
         } 
         else if(notification === 'BOARD_INFO') {
             this.boardInfo = payload;
+            //console.log(payload);
+        }
+        else if(notification === 'BOARD_MAPPING') {
+            this.boardMapping = payload;
             console.log(payload);
         }
         this.updateDom();
@@ -46,11 +50,16 @@ Module.register('MMM-JiraCloud', {
         return `${this.name}.njk`;
     },
 
+    getStyles() {
+        return ['MMM-JiraCloud.css'];
+    },
+
     getTemplateData() {
         return {
             statusList: this.statusList,
             issueList: this.issueList,
             boardInfo: this.boardInfo,
+            boardMapping: this.boardMapping,
         };
     },
 })
